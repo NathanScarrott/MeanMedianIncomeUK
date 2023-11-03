@@ -1,0 +1,36 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Read the CSV file
+df = pd.read_csv('/Users/nathanscarrott/Downloads/Median and Mean Household Income 1977-2021 - Table 1 (2).csv', skiprows=4)  # Skipping the first 4 rows
+
+# Rename columns
+df.columns = ['Dummy', 'Year', 'Mean', 'Median']
+
+# Drop the 'Dummy' column
+df.drop('Dummy', axis=1, inplace=True)
+
+# Convert the Year column's values to int type
+df['Year'] = df['Year'].str.replace(',', '').astype(int)
+
+# Convert the Mean and Median columns' values to int type after removing commas
+df['Mean'] = df['Mean'].str.replace(',', '').astype(int)
+df['Median'] = df['Median'].str.replace(',', '').astype(int)
+
+# Plotting
+sns.lineplot(data=df, x='Year', y='Mean', label='Mean')
+sns.lineplot(data=df, x='Year', y='Median', label='Median')
+plt.xlabel('Year')
+plt.ylabel('Value')
+plt.title('Mean and Median Household Income (1977-2021)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+#This code skips the first 4 rows (since the actual data starts from the 5th row) and then renames the columns correctly. We're also dropping the dummy column that isn't needed. The rest of the code remains mostly unchanged and should produce the desired plot.
+
+
+
+
+
